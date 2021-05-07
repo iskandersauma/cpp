@@ -1,0 +1,25 @@
+#ifndef ROOK_H
+#define ROOK_H
+#include "ChessPiece.h"
+
+class Rook : public ChessPiece{
+ protected:
+  int x,y;
+  bool isWhite;
+  ChessBoard* board;
+
+  int validMove(int to_x, int to_y);
+  char32_t utfRepresentation();
+  char latin1Representation();
+
+ public:
+  
+  bool capturingMove(int to_x, int to_y);
+  bool nonCapturingMove(int to_x, int to_y);
+  vector<ChessMove> capturingMoves();
+  vector<ChessMove> nonCapturingMoves();
+  
+  int unnecessaryInt;
+};
+
+#endif

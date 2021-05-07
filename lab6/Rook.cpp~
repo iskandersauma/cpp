@@ -1,0 +1,160 @@
+#ifndef ROOK_CPP
+#define ROOK_CPP
+#include "Rook.h"
+#include "ChessBoard.cpp"
+
+int Rook::validMove(int to_x, int to_y){
+  if(to_x >= 1 && to_x <= 8 && to_y >= 1 && to_y <= 8){
+    cout<<"checks valid move"<<endl;
+    if(this->board->get_state_idx(to_x,to_y) == 0){
+      cout<<"finds correct"<<endl;
+      return 1;
+    }
+    else if(this->isWhite != this->board->get_state_idx(to_x,to_y)->isWhite){
+      cout<<"return true when not"<<endl;
+      cout<<to_x<<endl;
+      cout<<to_y<<endl;
+      return 2;
+    }
+    else{
+      return 0;
+    }
+  }
+  else{
+    return 0;
+  }
+}
+char32_t Rook::utfRepresentation(){
+  if(this->isWhite == true){
+    return L'♖';
+  }
+  else{
+    return L'♜';
+  }
+}
+char Rook::latin1Representation(){
+  if(this->isWhite == true){
+    return 'R';
+  }
+  else{
+    return 'r';
+  }
+}
+
+bool Rook::capturingMove(int to_x, int to_y){
+  if(validMove(to_x,to_y) == 2){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
+bool Rook::nonCapturingMove(int to_x, int to_y){
+  if(validMove(to_x,to_y) == 1){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
+vector<ChessMove> Rook::capturingMoves(){
+  vector<ChessMove> list;
+  int i = 1;
+  bool next = false;
+  bool next2 = false;
+  bool next3 = false;
+  bool next4 = false;
+  
+  while(i < 8){
+    if(capturingMove(this->x + i,this->y) == true && next == false){
+      cout<<"no plus part gives error"<<endl;
+      struct ChessMove M = {this->x, this->y, this->x + i, this->y, this};
+      list.push_back(M);
+      next = true;
+    }
+    else if(nonCapturingMove(this->x + i,this->y) == false && next == false){
+      next = true;
+    }
+    
+    if(capturingMove(this->x - i,this->y) == true && next2 == false){
+      cout<<"this part gives wront"<<endl;
+      struct ChessMove M = {this->x, this->y, this->x - i, this->y, this};
+      list.push_back(M);
+      next2 = true;
+    }
+    else if(nonCapturingMove(this->x - i, this->y) == false && next2 == false){
+      next2 = true;
+    }
+    
+    if(capturingMove(this->x,this->y + i) == true && next3 == false){
+      cout<<"this part gives wront"<<endl;
+      struct ChessMove M = {this->x, this->y, this->x, this->y + i, this};
+      list.push_back(M);
+      next3 = true;
+    }
+    else if(nonCapturingMove(this->x, this->y + i) == false && next3 == false){
+      next3 = true;
+    }
+    
+    if(capturingMove(this->x,this->y - i) == true && next4 == false){
+      cout<<"this part gives wront"<<endl;
+      struct ChessMove M = {this->x, this->y, this->x, this->y - i, this};
+      list.push_back(M);
+      next4 = true;
+    }
+    else if(nonCapturingMove(this->x, this->y - i) == false && next4 == false){
+      next4 = true;
+    }
+    i++;
+  }
+  return list;
+}
+
+vector<ChessMove> Rook::nonCapturingMoves(){
+  vector<ChessMove> list;
+  int i = 1;
+  bool next = false;
+  bool next2 = false;
+  bool next3 = false;
+  bool next4 = false;
+  
+  while(i < 8){
+    if(nonCapturingMove(this->x + i,this->y) == true && next == false){
+      struct ChessMove M = {this->x, this->y, this->x + i, this->y, this};
+      list.push_back(M);
+    }
+    else{
+      next = true;
+    }
+    
+    if(nonCapturingMove(this->x - i,this->y) == true && next2 == false){
+      struct ChessMove M = {this->x, this->y, this->x - i, this->y, this};
+      list.push_back(M);
+    }
+    else{
+      next2 = true;
+    }
+    
+    if(nonCapturingMove(this->x,this->y + i) == true && next3 == false){
+      struct ChessMove M = {this->x, this->y, this->x, this->y + i, this};
+      list.push_back(M);
+    }
+    else{
+      next3 = true;
+    }
+    
+    if(nonCapturingMove(this->x,this->y - i) == true && next4 == false){
+      struct ChessMove M = {this->x, this->y, this->x, this->y - i, this};
+      list.push_back(M);
+    }
+    else{
+      next4 = true;
+    }
+    i++;
+  }
+  return list;
+}
+
+#endif

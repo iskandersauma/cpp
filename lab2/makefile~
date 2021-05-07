@@ -1,0 +1,5 @@
+#include <iostream>
+CC = g++ -std=c++11
+
+complex: lab2.cpp
+	$(CC) lab2.cpp -o lab2.out

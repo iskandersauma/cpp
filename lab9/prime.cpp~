@@ -1,0 +1,21 @@
+#include <iostream>
+
+using namespace std;
+
+template <unsigned int X>
+struct is_prime
+{
+  for(int i = 2; i <= x; i++){
+    bool
+  }
+};
+
+template <int p, int i> struct check_if_prime
+{
+	// ...
+};
+
+int main()
+{
+  cout << is_prime<5>::nr << endl;
+}
